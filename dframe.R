@@ -6,9 +6,9 @@ myNewData <- data.frame(person = c("Stan", "Francine", "Steve", "Roger", "Hayley
 )
 
 
-newAge <- c(41, 41, 15, 1600, 21, 60)
+age <- c(41, 41, 15, 1600, 21, 60)
 
-myNewData <- cbind(myNewData, newAge)
+myNewData <- cbind(myNewData, age)
 
 
 
