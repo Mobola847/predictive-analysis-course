@@ -159,17 +159,17 @@ df_titanic %>%
     drop_na(class, alive) %>%
     filter(alive %in% c("no")) %>% 
     ggplot(aes(x=class)) +
-    geom_bar() +
+    geom_bar(alpha=0.5) +
     labs(title = "Death by Class on Titanic", 
          x="Class", y=" Not Survive" ) +
-    theme_classic()
+    theme_light()
   
   df_titanic %>% 
     drop_na(embark_town, who) %>% 
-    ggplot(aes(x=embark_town)) +
+    ggplot(aes(x=embark_town, fill=who)) +
     geom_bar() +
-    labs(title = "Deaths by Departure on Titanic", 
-         x="Departure", y="Not Survive" ) +
+    labs(title = "Who by Departure on Titanic", 
+         x="Departure", y="Who" ) +
     theme_classic()
   
   df_titanic %>% 
@@ -195,6 +195,23 @@ df_titanic %>%
     geom_histogram() +
     labs(title = "No of Passengers that survived on Titanic", 
          x="Survived", y="Number of Passengers" ) +
+    theme_classic()
+  
+  df_titanic %>% 
+    drop_na(embark_town, alive) %>% 
+    filter(alive %in% c(alive="no")) %>% 
+    ggplot(aes(x=embark_town, fill=who)) +
+    geom_bar(alpha = 0.4) +
+    labs(title = "Death by Departure on Titanic", 
+         x="Departure", y="Death" ) +
+    theme_classic()
+  
+  df_titanic %>% 
+    drop_na(alive, sex) %>% 
+    ggplot(aes(x=alive, fill=sex)) +
+    geom_bar() +
+    labs(title = "Gender of those who survived on Titanic", 
+         x="Alive", y="Gender" ) +
     theme_classic()
   
   
