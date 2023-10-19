@@ -132,18 +132,18 @@ df_titanic %>%
     theme_grey()
   
   df_titanic %>% 
-    drop_na(age, fare) %>%
-    ggplot(aes(age, embark_town,fill = who )) +
+    drop_na(age) %>%
+    ggplot(aes(age, embark_town,fill = sex )) +
     geom_boxplot() +
-    labs(title = "Age by Sex and Departure on Titanic", 
+    labs(title = "Age by Gender and Departure on Titanic", 
          x="Age", y="Departure" ) +
     theme_grey()
   
   df_titanic %>% 
-    drop_na(age, fare, embark_town) %>%
+    drop_na(age, embark_town, who) %>%
     ggplot(aes(age, embark_town,fill = who )) +
     geom_boxplot() +
-    labs(title = "Age by Sex and Departure on Titanic", 
+    labs(title = "Age by Who and Departure on Titanic", 
          x="Age", y="Departure" ) +
     theme_light()
   
