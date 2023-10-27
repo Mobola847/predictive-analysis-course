@@ -1,15 +1,15 @@
-# Assignment 4 Repository
+# Assignment 5 Repository
 This repository consists of code for the Predictive Analysis course at [SAIT](https://www.sait.ca/) college.
 
-## Unit 5 - Linear Regression
+## Unit 5 - K Means Algorithm
 
-This is the third assisgnment in R, [Linear Regression2](https://github.com/Mobola847/predictive-analysis-course/blob/main/Assign4_DentalV.Rmd)
-Coffee and Blood Pressure
-Scenario Two
-Bright Smile Corporation provides dental services to their clients. They have been in business for a number of years, but recently they have experienced competition from other dental service providers who provide mobile dental services to their clients. Mobile services are all about providing basic dental services at clients' homes. Bright Smile has a dilemma, as they are unsure if the mobile service is a good inversion and/or expansion.
-Tasks
-Use the dataset on the “Bright Smile Corporation” tab of the datasheet to complete the following: 
-1. Show a graph (scatter) with linear progression.
-2. Analyze the data and add a regression line. 
-3. Predict the next two price points ($200 and $50). 
-4. Add both new values to the scatter linear graph. 
+This is the fifth assisgnment in R, [K Means Algorithm](https://github.com/Mobola847/predictive-analysis-course/blob/main/Assignment5.Rmd)
+
+The mammal_Sleep dataset contains information on sleep habits for 83 mammals. 
+Features include total sleep, length of the sleep cycle, time spent awake, brain weight, and body weight. 
+Animals are also labeled with their name, genus, and conservation status. Here are the tasks
+1. Load the dataset mammal_Sleep.csv into a data frame.
+2. Create a new data frame mammalSleep with sleep_total and sleep_rem.
+3. Fit a k-means clustering model with 4 clusters to the data subset mammalSleep.
+4. Find the centroids of the clusters in the model on the chart
+5. (If you can’t figure how to it using fviz_cluster function, you can use plot() or geom_point().
