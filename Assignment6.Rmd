@@ -1,0 +1,73 @@
+---
+title: "Assignment6"
+output: html_document
+date: "2023-10-27"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+ASSIGNMENT 6 - TIME SERIES
+
+```{r}
+library(tidyverse)
+library(forecast)
+
+retail <- read.csv("retail_data.csv")
+tail(retail)
+class(retail)
+attributes(retail)
+plot(retail)
+view(retail)
+
+ts_R <- ts(retail$Sales,
+              start = c(2018,1),
+              end = c(2023,12),
+              frequency = 12)
+
+deco_ts_R <- decompose(ts_R)
+plot(deco_ts_R)
+
+ts_R <- log(ts_R)
+plot(ts_R)
+
+model7 <- auto.arima(ts_R)
+
+# forecast
+f <- forecast(model7, h=4)
+print(f)
+accuracy(f)
+g <- forecast(model7, h=8)
+print(g)
+accuracy(g)
+h <- forecast(model7, h=12)
+print(h)
+accuracy(h)
+
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+h_vector <- c(9.278884,
+              9.164162,
+              9.237512,
+              9.345516,
+              9.200992,
+              9.225898,
+              9.225817,
+              9.212307,
+              9.243648,
+              9.234348,
+              9.230814,
+              9.233297)
+h_dollars <- exp(h_vector)
+print(h_dollars)
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
