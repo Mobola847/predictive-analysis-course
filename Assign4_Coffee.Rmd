@@ -1,0 +1,61 @@
+---
+title: "Assignment4_Coffee"
+output: html_document
+date: "2023-10-25"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+ASSIGNMENT 4 COFFEE
+
+
+```{r}
+library(tidyverse)
+
+df_C <- read.csv("Coffee_BP.csv")
+view(df_C)
+
+df_C %>% 
+  ggplot(aes(CCoffee, BP))+
+  geom_point()+
+  geom_smooth(method="lm")
+
+set.seed(1)
+df_C$id <- 1:nrow(df_C)
+train_C <- df_C %>%  sample_frac(0.80)
+test_C1 <- anti_join(df_C, train_C, by="id")
+
+model_C <- lm(BP ~ CCoffee, data=train_C)
+summary(model_C)
+
+test_C1$pred_BP <- predict(model_C, test_C1)
+view(test_C1)
+
+predict(model_C, data.frame(CCoffee=c(6, 8)))
+
+```
+
+
+```{r pressure, echo=FALSE}
+df_C <- df_C %>% 
+  add_row(BP = 148.14, CCoffee = 6)
+
+
+df_C <- df_C %>% 
+  add_row(BP = 152.21, CCoffee = 8)
+view(df_C)
+
+df_C %>% 
+  ggplot(aes(CCoffee, BP))+
+  geom_point()+
+  geom_smooth(method="lm", color="yellow")
+
+
+```
+There is a positive relationship between number of cups of coffee consumed and blood pressure. 
+This means the higher the number of cups of coffee consumed the higher the blood pressure.
+The individual should reduce consumption of coffee, based on this dataset.
+
+Also the Pvalue is close to zero at 0.04363,  (the P-value is the level of marginal significance within a statistical hypothesis test, representing the probability of the occurrence of a given event) shows that the probability of occurrence is high. 
+

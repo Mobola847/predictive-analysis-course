@@ -1,0 +1,73 @@
+---
+title: "Assignment 4"
+output: html_document
+date: "2023-10-25"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Assignment 4 - DentalV
+
+```{r}
+
+```
+
+```{r}
+library(tidyverse)
+
+df_S <- read.csv("dentalServ.csv")
+view(df_S)
+
+df_S %>% 
+  ggplot(aes(Price, Income))+
+  geom_point()+
+  geom_point(aes(Price=200, Income=296.52))
+  geom_smooth(method="lm", color="red")
+  
+  set.seed(1)
+df_S$id <- 1:nrow(df_S)
+train_S <- df_S %>%  sample_frac(0.80)
+test_S <- anti_join(df_S, train_S, by="id")
+
+model_S <- lm(Income ~ Price, data=train_S)
+summary(model_S)
+
+test_S$pred_S <- predict(model_S, test_S)
+view(test_S)
+
+
+
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent
+
+```{r}
+predict(model_S, data.frame(Price=c(200, 50)))
+
+df_S <- df_S %>% 
+  add_row(Income = 66.59, Dvisits = 0, Price = 50)
+view(df_S)
+
+df_S <- df_S %>% 
+  add_row(Income = 296.52, Dvisits = 0, Price = 200)
+view(df_S)
+
+df_S %>% 
+  ggplot(aes(Price, Income))+
+  geom_point()+
+  geom_smooth(method="lm", color="yellow")
+
+```
+
+printing of the R code that generated the plot.
