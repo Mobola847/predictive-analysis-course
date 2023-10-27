@@ -1,0 +1,120 @@
+---
+title: "Assignment3"
+output: html_document
+date: "2023-10-20"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+ASSIGNMENT 3 USING SQL IN R Installing packages:
+
+```{r echo=TRUE}
+{library(tidyverse)}
+```
+
+```{r}
+
+```
+
+```         
+```
+
+```{r message=TRUE}
+library(RODBC)
+db_com <- odbcConnect("myDatabase", rows_at_time = 1)
+
+salesQuery <- "select * from Sales.SalesTerritory"
+
+salesData <- sqlQuery(db_com,salesQuery, stringsAsFactors = FALSE)
+head(salesData)
+
+
+salesData <- sqlQuery(db_com, "select [Group], SUM([SalesYTD]) as Sales
+from [AdventureWorks2019].[Sales].[SalesTerritory]
+group by [Group]")
+head(salesData)
+ggplot(salesData, aes(x="", Sales, fill=Group)) +
+  geom_bar(width = 1, stat= "identity") +
+  coord_polar("y", start = 0) +
+scale_fill_manual(values=c("#999999", "#E69F00", "#56B4E9")) +
+ scale_fill_brewer(palette="Dark2") +
+  scale_fill_brewer(palette="Blues")+
+  theme_minimal() +
+  scale_fill_grey() + theme_minimal() +
+  theme(axis.text.x=element_blank())
+
+
+```
+
+```{r}
+profitQuery <- "select * from Sales.SalesOrderDetail"
+    
+    profitData <- sqlQuery(db_com,profitQuery, stringsAsFactors = FALSE)
+    head(profitData)
+    
+
+profitData <- sqlQuery(db_com, "select Production.Product.Name as ProductName, sum(SalesOrderDetail.LineTotal) as ProfitProduct
+from  Production.Product
+left join Sales.SalesOrderDetail on Sales.SalesOrderDetail.ProductID = Production.Product.ProductID
+inner join Purchasing.PurchaseOrderDetail on Purchasing.PurchaseOrderDetail.ProductID = Production.Product.ProductID
+group by Production.Product.Name, SalesOrderDetail.LineTotal
+order by ProfitProduct DESC"
+)
+head(profitData)
+
+profitData <- sqlQuery(db_com, "select TOP 10 Production.Product.Name as ProductName, sum(SalesOrderDetail.LineTotal) as ProfitProduct
+from  Production.Product
+left join Sales.SalesOrderDetail on Sales.SalesOrderDetail.ProductID = Production.Product.ProductID
+inner join Purchasing.PurchaseOrderDetail on Purchasing.PurchaseOrderDetail.ProductID = Production.Product.ProductID
+group by Production.Product.Name, SalesOrderDetail.LineTotal
+order by ProfitProduct DESC"
+)
+head(profitData)
+
+
+ggplot(data=profitData, aes(y = ProductName, x= ProfitProduct)) +
+  geom_bar(stat = "identity")
+
+
+
+```
+
+```{r}
+profitData <- sqlQuery(db_com, "select TOP 10 Production.Product.Name as ProductName, sum(SalesOrderDetail.LineTotal) as ProfitProduct
+from  Production.Product
+left join Sales.SalesOrderDetail on Sales.SalesOrderDetail.ProductID = Production.Product.ProductID
+inner join Purchasing.PurchaseOrderDetail on Purchasing.PurchaseOrderDetail.ProductID = Production.Product.ProductID
+group by Production.Product.Name, SalesOrderDetail.LineTotal
+order by ProfitProduct DESC"
+)
+head(profitData)
+
+
+ggplot(data=profitData, aes(y = ProductName, x= ProfitProduct)) +
+  geom_bar(stat = "identity")
+
+```
+
+```{r}
+
+
+
+```
+
+```{r}
+
+```
+
+`{library("tidyverse")}`
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
